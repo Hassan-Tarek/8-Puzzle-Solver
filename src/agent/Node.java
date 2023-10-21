@@ -1,5 +1,6 @@
 package agent;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,29 +86,36 @@ public class Node {
             int colIndexOfSpace = spaceIndex[1];
 
             if (isValidMove(direction)) {
-                Node node = new Node(tiles, this, depth + 1, cost + 1);
-                switch (direction) {
-                    case UP -> {
-                        node.tiles[rowIndexOfSpace][colIndexOfSpace] =  node.tiles[rowIndexOfSpace - 1][colIndexOfSpace];
-                        node.tiles[rowIndexOfSpace - 1][colIndexOfSpace] = 0;
-                    }
-                    case DOWN -> {
-                        node.tiles[rowIndexOfSpace][colIndexOfSpace] =  node.tiles[rowIndexOfSpace + 1][colIndexOfSpace];
-                        node.tiles[rowIndexOfSpace + 1][colIndexOfSpace] = 0;
-                    }
-                    case RIGHT -> {
-                        node.tiles[rowIndexOfSpace][colIndexOfSpace] =  node.tiles[rowIndexOfSpace][colIndexOfSpace + 1];
-                        node.tiles[rowIndexOfSpace][colIndexOfSpace + 1] = 0;
-                    }
-                    case LEFT -> {
-                        node.tiles[rowIndexOfSpace][colIndexOfSpace] =  node.tiles[rowIndexOfSpace][colIndexOfSpace - 1];
-                        node.tiles[rowIndexOfSpace][colIndexOfSpace - 1] = 0;
-                    }
+                int newRow = rowIndexOfSpace + direction.getRowOffset();
+                int newCol = colIndexOfSpace + direction.getColOffset();
+
+                int[][] newTiles = new int[tiles.length][tiles[0].length];
+                for (int i = 0; i < tiles.length; i++) {
+                    System.arraycopy(tiles[i], 0, newTiles[i], 0, tiles[i].length);
                 }
-                filteredSuccessors.add(node);
+
+                newTiles[rowIndexOfSpace][colIndexOfSpace] = newTiles[newRow][newCol];
+                newTiles[newRow][newCol] = 0;
+                Node newNode = new Node(newTiles, this, depth + 1, cost + 1);
+                filteredSuccessors.add(newNode);
             }
         }
 
         return filteredSuccessors;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Node other = (Node) obj;
+        return Arrays.deepEquals(this.tiles, other.tiles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(this.tiles);
     }
 }
