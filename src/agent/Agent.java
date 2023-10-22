@@ -46,6 +46,19 @@ public abstract class Agent {
         return node.equals(goalNode);
     }
 
+    public List<Node> constructSolution(Node goal) {
+        List<Node> solution = new LinkedList<>();
+        Node currentNode = goal;
+
+        while (currentNode.getParent() != null) {
+            solution.add(currentNode);
+            currentNode = currentNode.getParent();
+        }
+
+        Collections.reverse(solution);
+        return solution;
+    }
+
     public int getDepth() {
         return goalNode.getDepth();
     }
