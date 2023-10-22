@@ -1,16 +1,7 @@
 package agent;
 
-import algorithms.AStar;
-import algorithms.BFS;
-import algorithms.DFS;
-import algorithms.ISearch;
-
 public class AgentFactory {
-    public static ISearch createAgent(AgentType agentType) {
-        return switch (agentType) {
-            case DFS -> new DFS();
-            case BFS -> new BFS();
-            case A_STAR -> new AStar();
-        };
+    public static Agent createAgent(AgentType agentType, Node startNode, Node goalNode) {
+        return agentType.getAgentSupplier().apply(startNode, goalNode);
     }
 }

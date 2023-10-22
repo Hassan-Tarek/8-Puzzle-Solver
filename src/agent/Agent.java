@@ -1,8 +1,12 @@
 package agent;
 
+import algorithms.HeuristicType;
+
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
-public class Agent {
+public abstract class Agent {
     private Node startNode;
     private Node goalNode;
     private List<Node> solution;
@@ -35,6 +39,8 @@ public class Agent {
     public void setSolution(List<Node> solution) {
         this.solution = solution;
     }
+
+    public abstract void search();
 
     public boolean isGoal(Node node) {
         return node.equals(goalNode);
