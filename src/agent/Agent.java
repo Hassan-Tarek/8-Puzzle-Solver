@@ -1,7 +1,5 @@
 package agent;
 
-import algorithms.HeuristicType;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,11 +7,14 @@ import java.util.List;
 public abstract class Agent {
     private Node startNode;
     private Node goalNode;
+    protected int expandedNodes;
+    protected int maxDepth;
     private List<Node> solution;
 
     public Agent(Node startNode, Node goalNode) {
         this.startNode = startNode;
         this.goalNode = goalNode;
+        this.expandedNodes = 0;
     }
 
     public Node getStartNode() {
@@ -38,6 +39,22 @@ public abstract class Agent {
 
     public void setSolution(List<Node> solution) {
         this.solution = solution;
+    }
+
+    public int getExpandedNodes() {
+        return expandedNodes;
+    }
+
+    public void setExpandedNodes(int expandedNodes) {
+        this.expandedNodes = expandedNodes;
+    }
+
+    public int getMaxDepth() {
+        return maxDepth;
+    }
+
+    public void setMaxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
     }
 
     public abstract void search();

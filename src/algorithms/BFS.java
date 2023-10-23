@@ -23,11 +23,14 @@ public class BFS extends Agent {
 
         while (!frontier.isEmpty()) {
             Node currentNode = frontier.poll();
+            expandedNodes++;
+            maxDepth = Math.max(maxDepth, currentNode.getDepth());
 
             if (!visited.contains(currentNode)) {
                 visited.add(currentNode);
 
                 if (isGoal(currentNode)) {
+                    setGoalNode(currentNode);
                     setSolution(constructSolution(currentNode));
                     return;
                 }

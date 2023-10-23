@@ -25,8 +25,11 @@ public class DFS extends Agent {
 
             if (!visited.contains(currentNode)) {
                 visited.add(currentNode);
+                expandedNodes++;
+                maxDepth = Math.max(maxDepth, currentNode.getDepth());
 
                 if (isGoal(currentNode)) {
+                    setGoalNode(currentNode);
                     setSolution(constructSolution(currentNode));
                     return;
                 }
