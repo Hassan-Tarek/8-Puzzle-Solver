@@ -1,17 +1,16 @@
 package runner;
 
+import gui.GameView;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private static final GameView view = GameView.getInstance();
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../solver.fxml"));
         primaryStage.setTitle("8-Puzzle Solver");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        view.setup(primaryStage);
         primaryStage.show();
     }
 
