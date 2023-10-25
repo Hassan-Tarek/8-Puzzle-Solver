@@ -67,7 +67,7 @@ public abstract class Agent {
         List<Node> solution = new LinkedList<>();
         Node currentNode = goal;
 
-        while (currentNode.getParent() != null) {
+        while (currentNode != null) {
             solution.add(currentNode);
             currentNode = currentNode.getParent();
         }

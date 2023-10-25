@@ -72,9 +72,10 @@ public class Controller {
     public EventHandler<ActionEvent> getPrevState() {
         return event -> {
             List<Node> solution = agent.getSolution();
-            currentStateIndex = Math.max(0, currentStateIndex - 1);
+            Node currentNode = solution.get(currentStateIndex - 1);
+            currentStateIndex--;
 
-            updateGridDisplay(solution.get(currentStateIndex).getTiles());
+            updateGridDisplay(currentNode.getTiles());
             updateButtonStates(currentStateIndex, solution.size());
         };
     }
@@ -82,9 +83,10 @@ public class Controller {
     public EventHandler<ActionEvent> getNextState() {
         return event -> {
             List<Node> solution = agent.getSolution();
-            currentStateIndex = Math.min(solution.size() - 1, currentStateIndex + 1);
+            Node currentNode = solution.get(currentStateIndex + 1);
+            currentStateIndex++;
 
-            updateGridDisplay(solution.get(currentStateIndex).getTiles());
+            updateGridDisplay(currentNode.getTiles());
             updateButtonStates(currentStateIndex, solution.size());
         };
     }
@@ -103,7 +105,7 @@ public class Controller {
         for (int i = 0; i < puzzle.length(); i++) {
             char c = puzzle.charAt(i);
             set.add(c);
-            if (!Character.isDigit(c) || (c - '0') == 9) {
+            if (!Character.isDigit(c) || c == '9') {
                 return false;
             }
         }
@@ -174,7 +176,7 @@ public class Controller {
     }
 
     private void updateButtonStates(int currentIndex, int solutionSize) {
-        view.getNextButton().setDisable(currentIndex >= solutionSize);
+        view.getNextButton().setDisable(currentIndex >= solutionSize - 1);
         view.getPrevButton().setDisable(currentIndex <= 0);
     }
 }
