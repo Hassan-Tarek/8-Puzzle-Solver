@@ -149,12 +149,12 @@ public class Controller {
 
     private void updateTextDisplay(String cost, String depth, String maxDepth,
                                    String expandedNodes, String time) {
-        view.getCostOfPathLabel().setText("Cost of Path = " + cost);
-        view.getSearchDepthLabel().setText("Search Depth = " + depth);
-        view.getMaxDepthLabel().setText("Max Depth = " + maxDepth);
-        view.getExpandedNodesLabel().setText("No. of Expanded Nodes = " + expandedNodes);
+        view.getCostOfPathValueLabel().setText(cost);
+        view.getSearchDepthValueLabel().setText(depth);
+        view.getMaxDepthValueLabel().setText(maxDepth);
+        view.getExpandedNodesValueLabel().setText(expandedNodes);
         String t = time.equals("") ? "" : " ms";
-        view.getTimeLabel().setText("Time = " + time + t);
+        view.getTimeValueLabel().setText(time + t);
     }
 
     private void updateGridDisplay(int[][] tiles) {
@@ -167,11 +167,11 @@ public class Controller {
     }
 
     private void clearDisplay() {
-        view.getCostOfPathLabel().setText("Cost of Path = ");
-        view.getSearchDepthLabel().setText("Search Depth = ");
-        view.getMaxDepthLabel().setText("Max Depth = ");
-        view.getExpandedNodesLabel().setText("No. of Expanded Nodes = ");
-        view.getTimeLabel().setText("Time = ");
+        view.getCostOfPathValueLabel().setText("");
+        view.getSearchDepthValueLabel().setText("");
+        view.getMaxDepthValueLabel().setText("");
+        view.getExpandedNodesValueLabel().setText("");
+        view.getTimeValueLabel().setText("");
         updateGridDisplay(new int[][]{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
     }
 

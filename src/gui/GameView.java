@@ -25,11 +25,16 @@ public class GameView {
 
     private Label puzzleInputLabel;
     private Label algorithmSelectionLabel;
-    private Label costOfPathLabel;
-    private Label searchDepthLabel;
-    private Label maxDepthLabel;
-    private Label expandedNodesLabel;
-    private Label timeLabel;
+    private Label costOfPathHeaderLabel;
+    private Label costOfPathValueLabel;
+    private Label searchDepthHeaderLabel;
+    private Label searchDepthValueLabel;
+    private Label maxDepthHeaderLabel;
+    private Label maxDepthValueLabel;
+    private Label expandedNodesHeaderLabel;
+    private Label expandedNodesValueLabel;
+    private Label timeHeaderLabel;
+    private Label timeValueLabel;
     private Label[][] gridLabel;
     private TextField puzzleTextField;
     private Button solveButton;
@@ -75,24 +80,24 @@ public class GameView {
         return scene;
     }
 
-    public Label getCostOfPathLabel() {
-        return costOfPathLabel;
+    public Label getCostOfPathValueLabel() {
+        return costOfPathValueLabel;
     }
 
-    public Label getSearchDepthLabel() {
-        return searchDepthLabel;
+    public Label getSearchDepthValueLabel() {
+        return searchDepthValueLabel;
     }
 
-    public Label getMaxDepthLabel() {
-        return maxDepthLabel;
+    public Label getMaxDepthValueLabel() {
+        return maxDepthValueLabel;
     }
 
-    public Label getExpandedNodesLabel() {
-        return expandedNodesLabel;
+    public Label getExpandedNodesValueLabel() {
+        return expandedNodesValueLabel;
     }
 
-    public Label getTimeLabel() {
-        return timeLabel;
+    public Label getTimeValueLabel() {
+        return timeValueLabel;
     }
 
     public Label[][] getGridLabel() {
@@ -137,49 +142,64 @@ public class GameView {
         VBox.setMargin(searchAlgorithmsBox, new Insets(10, 0, 5, 0));
 
         VBox layout3 = new VBox();
-        layout3.setMinWidth((double) WINDOW_WIDTH / 2);
+        layout3.setMinWidth((double) 3 * WINDOW_WIDTH / 8);
         layout3.setMinHeight((double) 5 * WINDOW_HEIGHT / 16);
         layout3.setFillWidth(true);
-        layout3.getChildren().addAll(costOfPathLabel, searchDepthLabel,
-                maxDepthLabel, expandedNodesLabel, timeLabel);
-        VBox.setMargin(costOfPathLabel, new Insets(6, 0, 6, 15));
-        VBox.setMargin(searchDepthLabel, new Insets(6, 0, 6, 15));
-        VBox.setMargin(maxDepthLabel, new Insets(6, 0, 6, 15));
-        VBox.setMargin(expandedNodesLabel, new Insets(6, 0, 6, 15));
-        VBox.setMargin(timeLabel, new Insets(6, 0, 6, 15));
+        layout3.getChildren().addAll(costOfPathHeaderLabel, searchDepthHeaderLabel,
+                maxDepthHeaderLabel, expandedNodesHeaderLabel, timeHeaderLabel);
+        VBox.setMargin(costOfPathHeaderLabel, new Insets(6, 0, 6, 15));
+        VBox.setMargin(searchDepthHeaderLabel, new Insets(6, 0, 6, 15));
+        VBox.setMargin(maxDepthHeaderLabel, new Insets(6, 0, 6, 15));
+        VBox.setMargin(expandedNodesHeaderLabel, new Insets(6, 0, 6, 15));
+        VBox.setMargin(timeHeaderLabel, new Insets(6, 0, 6, 15));
 
         VBox layout4 = new VBox();
-        layout4.setMinWidth((double) WINDOW_WIDTH / 2);
-        layout4.setMinHeight((double) 5 * WINDOW_HEIGHT / 48);
+        layout4.setMinWidth((double) WINDOW_WIDTH / 8);
+        layout4.setMinHeight((double) 5 * WINDOW_HEIGHT / 16);
         layout4.setFillWidth(true);
-        layout4.setAlignment(Pos.TOP_CENTER);
-        layout4.getChildren().addAll(resetButton);
+        layout4.setAlignment(Pos.TOP_LEFT);
+        layout4.getChildren().addAll(costOfPathValueLabel, searchDepthValueLabel,
+                maxDepthValueLabel, expandedNodesValueLabel, timeValueLabel);
+        VBox.setMargin(costOfPathValueLabel, new Insets(6, 0, 6, 0));
+        VBox.setMargin(searchDepthValueLabel, new Insets(6, 0, 6, 0));
+        VBox.setMargin(maxDepthValueLabel, new Insets(6, 0, 6, 0));
+        VBox.setMargin(expandedNodesValueLabel, new Insets(6, 0, 6, 0));
+        VBox.setMargin(timeValueLabel, new Insets(6, 0, 6, 0));
+
+        HBox layout5 = new HBox();
+        layout5.getChildren().addAll(layout3, layout4);
+
+        VBox layout6 = new VBox();
+        layout6.setMinWidth((double) WINDOW_WIDTH / 2);
+        layout6.setMinHeight((double) 5 * WINDOW_HEIGHT / 48);
+        layout6.setFillWidth(true);
+        layout6.setAlignment(Pos.TOP_CENTER);
+        layout6.getChildren().addAll(resetButton);
         VBox.setMargin(resetButton, new Insets(0, 0, 30, 0));
 
         VBox leftLayout = new VBox();
-        leftLayout.getChildren().addAll(layout1, layout2, layout3, layout4);
+        leftLayout.getChildren().addAll(layout1, layout2, layout5, layout6);
 
-        GridPane layout5 = new GridPane();
-        layout5.setPadding(new Insets(7));
-        layout5.setHgap(10);
-        layout5.setVgap(10);
-        layout5.setMinHeight((double) 3 * WINDOW_HEIGHT / 4);
-        layout5.setAlignment(Pos.CENTER);
+        GridPane layout7 = new GridPane();
+        layout7.setPadding(new Insets(7));
+        layout7.setHgap(10);
+        layout7.setVgap(10);
+        layout7.setMinHeight((double) 3 * WINDOW_HEIGHT / 4);
+        layout7.setAlignment(Pos.CENTER);
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                layout5.add(gridLabel[row][col], col, row);
+                layout7.add(gridLabel[row][col], col, row);
             }
         }
 
-        HBox layout6 = new HBox();
-        layout6.setAlignment(Pos.CENTER);
-        layout6.getChildren().addAll(nextButton, prevButton);
+        HBox layout8 = new HBox();
+        layout8.setAlignment(Pos.CENTER);
+        layout8.getChildren().addAll(nextButton, prevButton);
         HBox.setHgrow(nextButton, javafx.scene.layout.Priority.ALWAYS);
-        layout6.setSpacing(110);
-
+        layout8.setSpacing(110);
 
         VBox rightLayout = new VBox();
-        rightLayout.getChildren().addAll(layout5, layout6);
+        rightLayout.getChildren().addAll(layout7, layout8);
 
         mainLayout = new HBox();
         mainLayout.setStyle("-fx-background-color: #FFFFFF;");
@@ -191,23 +211,41 @@ public class GameView {
         puzzleInputLabel.setFont(Font.font("Arial", FontWeight.BLACK, 16));
         algorithmSelectionLabel = new Label("Choose a Search Algorithm: ");
         algorithmSelectionLabel.setFont(Font.font("Arial", FontWeight.BLACK, 16));
-        costOfPathLabel = new Label("Cost of Path = ");
-        costOfPathLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        searchDepthLabel = new Label("Search Depth = ");
-        searchDepthLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        maxDepthLabel = new Label("Max Depth = ");
-        maxDepthLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        expandedNodesLabel = new Label("No. of Expanded Nodes = ");
-        expandedNodesLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        timeLabel = new Label("Time = ");
-        timeLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+
+        costOfPathHeaderLabel = new Label("Cost of Path = ");
+        costOfPathHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        searchDepthHeaderLabel = new Label("Search Depth = ");
+        searchDepthHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        maxDepthHeaderLabel = new Label("Max Depth = ");
+        maxDepthHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        expandedNodesHeaderLabel = new Label("No. of Expanded Nodes = ");
+        expandedNodesHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        timeHeaderLabel = new Label("Time = ");
+        timeHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+
+        costOfPathValueLabel = new Label("");
+        costOfPathValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        costOfPathValueLabel.setStyle("-fx-text-fill: #228B22");
+        searchDepthValueLabel = new Label("");
+        searchDepthValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        searchDepthValueLabel.setStyle("-fx-text-fill: #228B22");
+        maxDepthValueLabel = new Label("");
+        maxDepthValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        maxDepthValueLabel.setStyle("-fx-text-fill: #228B22");
+        expandedNodesValueLabel = new Label("");
+        expandedNodesValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        expandedNodesValueLabel.setStyle("-fx-text-fill: #228B22");
+        timeValueLabel = new Label("");
+        timeValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        timeValueLabel.setStyle("-fx-text-fill: #228B22");
+
         gridLabel = new Label[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 gridLabel[i][j] = new Label("");
                 gridLabel[i][j].setMinWidth(90);
                 gridLabel[i][j].setMinHeight(90);
-                gridLabel[i][j].setStyle("-fx-background-color: #00ff00;");
+                gridLabel[i][j].setStyle("-fx-background-color: #00FF00;");
                 gridLabel[i][j].setFont(new Font("Arial", 30));
                 gridLabel[i][j].setAlignment(javafx.geometry.Pos.CENTER);
             }
