@@ -10,12 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class GameView {
-    private static final int WINDOW_WIDTH = 700;
+    private static final int WINDOW_WIDTH = 710;
     private static final int WINDOW_HEIGHT = 550;
 
     private Stage stage;
@@ -122,10 +120,11 @@ public class GameView {
 
     public void setupLayouts() {
         VBox layout1 = new VBox();
-        layout1.setMinWidth((double) WINDOW_WIDTH / 2);
+        layout1.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
         layout1.setMinHeight((double) WINDOW_HEIGHT / 3);
         layout1.setFillWidth(false);
         layout1.setAlignment(Pos.CENTER);
+        layout1.setId("layout1");
         layout1.getChildren().addAll(puzzleInputLabel, puzzleTextField, solveButton, viewPathButton);
         VBox.setMargin(puzzleInputLabel, new Insets(10, 0, 5, 0));
         VBox.setMargin(puzzleTextField, new Insets(10, 0, 5, 0));
@@ -133,7 +132,7 @@ public class GameView {
         VBox.setMargin(viewPathButton, new Insets(10, 0, 5, 0));
 
         VBox layout2 = new VBox();
-        layout2.setMinWidth((double) WINDOW_WIDTH / 2);
+        layout2.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
         layout2.setMinHeight((double) WINDOW_HEIGHT / 4);
         layout2.setFillWidth(true);
         layout2.setAlignment(Pos.CENTER);
@@ -170,7 +169,7 @@ public class GameView {
         layout5.getChildren().addAll(layout3, layout4);
 
         VBox layout6 = new VBox();
-        layout6.setMinWidth((double) WINDOW_WIDTH / 2);
+        layout6.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
         layout6.setMinHeight((double) 5 * WINDOW_HEIGHT / 48);
         layout6.setFillWidth(true);
         layout6.setAlignment(Pos.TOP_CENTER);
@@ -208,46 +207,37 @@ public class GameView {
 
     public void createLabels() {
         puzzleInputLabel = new Label("Enter your Puzzle in this form 123456780: ");
-        puzzleInputLabel.setFont(Font.font("Arial", FontWeight.BLACK, 16));
+        puzzleInputLabel.setId("prompt-label");
         algorithmSelectionLabel = new Label("Choose a Search Algorithm: ");
-        algorithmSelectionLabel.setFont(Font.font("Arial", FontWeight.BLACK, 16));
+        algorithmSelectionLabel.setId("prompt-label");
 
         costOfPathHeaderLabel = new Label("Cost of Path = ");
-        costOfPathHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        costOfPathHeaderLabel.setId("header-label");
         searchDepthHeaderLabel = new Label("Search Depth = ");
-        searchDepthHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        searchDepthHeaderLabel.setId("header-label");
         maxDepthHeaderLabel = new Label("Max Depth = ");
-        maxDepthHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        maxDepthHeaderLabel.setId("header-label");
         expandedNodesHeaderLabel = new Label("No. of Expanded Nodes = ");
-        expandedNodesHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        expandedNodesHeaderLabel.setId("header-label");
         timeHeaderLabel = new Label("Time = ");
-        timeHeaderLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
+        timeHeaderLabel.setId("header-label");
 
         costOfPathValueLabel = new Label("");
-        costOfPathValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        costOfPathValueLabel.setStyle("-fx-text-fill: #228B22");
+        costOfPathValueLabel.setId("value-label");
         searchDepthValueLabel = new Label("");
-        searchDepthValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        searchDepthValueLabel.setStyle("-fx-text-fill: #228B22");
+        searchDepthValueLabel.setId("value-label");
         maxDepthValueLabel = new Label("");
-        maxDepthValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        maxDepthValueLabel.setStyle("-fx-text-fill: #228B22");
+        maxDepthValueLabel.setId("value-label");
         expandedNodesValueLabel = new Label("");
-        expandedNodesValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        expandedNodesValueLabel.setStyle("-fx-text-fill: #228B22");
+        expandedNodesValueLabel.setId("value-label");
         timeValueLabel = new Label("");
-        timeValueLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 18));
-        timeValueLabel.setStyle("-fx-text-fill: #228B22");
+        timeValueLabel.setId("value-label");
 
         gridLabel = new Label[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 gridLabel[i][j] = new Label("");
-                gridLabel[i][j].setMinWidth(90);
-                gridLabel[i][j].setMinHeight(90);
-                gridLabel[i][j].setStyle("-fx-background-color: #00FF00;");
-                gridLabel[i][j].setFont(new Font("Arial", 30));
-                gridLabel[i][j].setAlignment(javafx.geometry.Pos.CENTER);
+                gridLabel[i][j].setId("grid-label");
             }
         }
     }
@@ -255,51 +245,35 @@ public class GameView {
     public void createPuzzleTextField() {
         puzzleTextField = new TextField();
         puzzleTextField.setPromptText("Enter Your Puzzle");
-        puzzleTextField.setMinWidth(280);
-        puzzleTextField.setMinHeight(35);
-        puzzleTextField.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
     }
 
     public void createButtons() {
         solveButton = new Button("Solve");
-        solveButton.setMinWidth(90);
-        solveButton.setMinHeight(35);
-        solveButton.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
+        solveButton.setId("btn");
         solveButton.setOnAction(controller.solve());
 
         resetButton = new Button("Reset");
-        resetButton.setMinWidth(90);
-        resetButton.setMinHeight(35);
-        resetButton.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
+        resetButton.setId("btn");
         resetButton.setOnAction(controller.reset());
 
         prevButton = new Button("Prev");
-        prevButton.setMinWidth(90);
-        prevButton.setMinHeight(35);
-        prevButton.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
+        prevButton.setId("btn");
         prevButton.setDisable(true);
         prevButton.setOnAction(controller.getPrevState());
 
         nextButton = new Button("Next");
-        nextButton.setMinWidth(90);
-        nextButton.setMinHeight(35);
-        nextButton.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
+        nextButton.setId("btn");
         nextButton.setDisable(true);
         nextButton.setOnAction(controller.getNextState());
 
         viewPathButton = new Button("View Path");
-        viewPathButton.setMaxWidth(90);
-        viewPathButton.setMaxHeight(35);
-        viewPathButton.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        viewPathButton.setId("view-path-btn");
         viewPathButton.setOnAction(controller.viewPath());
     }
 
     public void createSearchAlgorithmsComboBox() {
         searchAlgorithmsBox = new ComboBox<>();
         searchAlgorithmsBox.getItems().addAll("DFS", "BFS", "A* using Euclidean", "A* using Manhattan");
-        searchAlgorithmsBox.setMinWidth(200);
-        searchAlgorithmsBox.setMinHeight(30);
-        searchAlgorithmsBox.setStyle("-fx-font-family: Arial; -fx-font-size: 14;");
         searchAlgorithmsBox.setValue("BFS");
     }
 }
