@@ -9,7 +9,7 @@ public class Main extends Application {
     private static final GameView view = GameView.getInstance();
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("8-Puzzle Solver");
         view.setup(primaryStage);
         primaryStage.show();

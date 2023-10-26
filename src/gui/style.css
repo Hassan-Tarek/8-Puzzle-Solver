@@ -1,3 +1,7 @@
+#main-layout {
+    -fx-background-color: #FFFFFF;
+}
+
 #prompt-label {
     -fx-font-family: "Arial";
     -fx-font-size: 18;

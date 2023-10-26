@@ -16,6 +16,11 @@ public class GameView {
     private static final int WINDOW_WIDTH = 710;
     private static final int WINDOW_HEIGHT = 550;
 
+    private static final String PROMPT_LABEL_ID = "prompt-label";
+    private static final String HEADER_LABEL_ID = "header-label";
+    private static final String VALUE_LABEL_ID = "value-label";
+    private static final String GRID_LABEL_ID = "grid-label";
+
     private Stage stage;
     private Scene scene;
     private HBox mainLayout;
@@ -118,33 +123,59 @@ public class GameView {
         return searchAlgorithmsBox;
     }
 
-    public void setupLayouts() {
-        VBox layout1 = new VBox();
-        layout1.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
-        layout1.setMinHeight((double) WINDOW_HEIGHT / 3);
-        layout1.setFillWidth(false);
-        layout1.setAlignment(Pos.CENTER);
-        layout1.setId("layout1");
-        layout1.getChildren().addAll(puzzleInputLabel, puzzleTextField, solveButton, viewPathButton);
+    private void setupLayouts() {
+        VBox leftLayout = createLeftLayout();
+        VBox rightLayout = createRightLayout();
+
+        mainLayout = new HBox();
+        mainLayout.setId("main-layout");
+        mainLayout.getChildren().addAll(leftLayout, rightLayout);
+    }
+
+    private VBox createLeftLayout() {
+        VBox topLeftLayout = createTopLeftLayout();
+        HBox middleLeftLayout = createMiddleLeftLayout();
+        VBox downLeftLayout = createBottomLeftLayout();
+
+        VBox leftLayout = new VBox();
+        leftLayout.getChildren().addAll(topLeftLayout, middleLeftLayout, downLeftLayout);
+
+        return leftLayout;
+    }
+
+    private VBox createTopLeftLayout() {
+        VBox topLayout = new VBox();
+        topLayout.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
+        topLayout.setMinHeight((double) WINDOW_HEIGHT / 3);
+        topLayout.setFillWidth(false);
+        topLayout.setAlignment(Pos.CENTER);
+        topLayout.getChildren().addAll(puzzleInputLabel, puzzleTextField, solveButton, viewPathButton);
         VBox.setMargin(puzzleInputLabel, new Insets(10, 0, 5, 0));
         VBox.setMargin(puzzleTextField, new Insets(10, 0, 5, 0));
         VBox.setMargin(solveButton, new Insets(10, 0, 5, 0));
         VBox.setMargin(viewPathButton, new Insets(10, 0, 5, 0));
 
-        VBox layout2 = new VBox();
-        layout2.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
-        layout2.setMinHeight((double) WINDOW_HEIGHT / 4);
-        layout2.setFillWidth(true);
-        layout2.setAlignment(Pos.CENTER);
-        layout2.getChildren().addAll(algorithmSelectionLabel, searchAlgorithmsBox);
+        VBox bottomLayout = new VBox();
+        bottomLayout.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
+        bottomLayout.setMinHeight((double) WINDOW_HEIGHT / 4);
+        bottomLayout.setFillWidth(true);
+        bottomLayout.setAlignment(Pos.CENTER);
+        bottomLayout.getChildren().addAll(algorithmSelectionLabel, searchAlgorithmsBox);
         VBox.setMargin(algorithmSelectionLabel, new Insets(10, 0, 5, 0));
         VBox.setMargin(searchAlgorithmsBox, new Insets(10, 0, 5, 0));
 
-        VBox layout3 = new VBox();
-        layout3.setMinWidth((double) 3 * WINDOW_WIDTH / 8);
-        layout3.setMinHeight((double) 5 * WINDOW_HEIGHT / 16);
-        layout3.setFillWidth(true);
-        layout3.getChildren().addAll(costOfPathHeaderLabel, searchDepthHeaderLabel,
+        VBox topLeftLayout = new VBox();
+        topLeftLayout.getChildren().addAll(topLayout, bottomLayout);
+
+        return topLeftLayout;
+    }
+
+    private HBox createMiddleLeftLayout() {
+        VBox headerLabelsLayout = new VBox();
+        headerLabelsLayout.setMinWidth((double) 3 * WINDOW_WIDTH / 8);
+        headerLabelsLayout.setMinHeight((double) 5 * WINDOW_HEIGHT / 16);
+        headerLabelsLayout.setFillWidth(true);
+        headerLabelsLayout.getChildren().addAll(costOfPathHeaderLabel, searchDepthHeaderLabel,
                 maxDepthHeaderLabel, expandedNodesHeaderLabel, timeHeaderLabel);
         VBox.setMargin(costOfPathHeaderLabel, new Insets(6, 0, 6, 15));
         VBox.setMargin(searchDepthHeaderLabel, new Insets(6, 0, 6, 15));
@@ -152,12 +183,12 @@ public class GameView {
         VBox.setMargin(expandedNodesHeaderLabel, new Insets(6, 0, 6, 15));
         VBox.setMargin(timeHeaderLabel, new Insets(6, 0, 6, 15));
 
-        VBox layout4 = new VBox();
-        layout4.setMinWidth((double) WINDOW_WIDTH / 8);
-        layout4.setMinHeight((double) 5 * WINDOW_HEIGHT / 16);
-        layout4.setFillWidth(true);
-        layout4.setAlignment(Pos.TOP_LEFT);
-        layout4.getChildren().addAll(costOfPathValueLabel, searchDepthValueLabel,
+        VBox valueLabelsLayout = new VBox();
+        valueLabelsLayout.setMinWidth((double) WINDOW_WIDTH / 8);
+        valueLabelsLayout.setMinHeight((double) 5 * WINDOW_HEIGHT / 16);
+        valueLabelsLayout.setFillWidth(true);
+        valueLabelsLayout.setAlignment(Pos.TOP_LEFT);
+        valueLabelsLayout.getChildren().addAll(costOfPathValueLabel, searchDepthValueLabel,
                 maxDepthValueLabel, expandedNodesValueLabel, timeValueLabel);
         VBox.setMargin(costOfPathValueLabel, new Insets(6, 0, 6, 0));
         VBox.setMargin(searchDepthValueLabel, new Insets(6, 0, 6, 0));
@@ -165,89 +196,117 @@ public class GameView {
         VBox.setMargin(expandedNodesValueLabel, new Insets(6, 0, 6, 0));
         VBox.setMargin(timeValueLabel, new Insets(6, 0, 6, 0));
 
-        HBox layout5 = new HBox();
-        layout5.getChildren().addAll(layout3, layout4);
+        HBox middleLeftLayout = new HBox();
+        middleLeftLayout.getChildren().addAll(headerLabelsLayout, valueLabelsLayout);
 
-        VBox layout6 = new VBox();
-        layout6.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
-        layout6.setMinHeight((double) 5 * WINDOW_HEIGHT / 48);
-        layout6.setFillWidth(true);
-        layout6.setAlignment(Pos.TOP_CENTER);
-        layout6.getChildren().addAll(resetButton);
+        return middleLeftLayout;
+    }
+
+    private VBox createBottomLeftLayout() {
+        VBox layout = new VBox();
+        layout.setMinWidth((double) 11 * WINDOW_WIDTH / 20);
+        layout.setMinHeight((double) 5 * WINDOW_HEIGHT / 48);
+        layout.setFillWidth(true);
+        layout.setAlignment(Pos.TOP_CENTER);
+        layout.getChildren().addAll(resetButton);
         VBox.setMargin(resetButton, new Insets(0, 0, 30, 0));
 
-        VBox leftLayout = new VBox();
-        leftLayout.getChildren().addAll(layout1, layout2, layout5, layout6);
+        return layout;
+    }
 
-        GridPane layout7 = new GridPane();
-        layout7.setPadding(new Insets(7));
-        layout7.setHgap(10);
-        layout7.setVgap(10);
-        layout7.setMinHeight((double) 3 * WINDOW_HEIGHT / 4);
-        layout7.setAlignment(Pos.CENTER);
+    private VBox createRightLayout() {
+        GridPane gridLayout = createTopRightLayout();
+        HBox buttonsLayout = createBottomRightLayout();
+
+        VBox rightLayout = new VBox();
+        rightLayout.getChildren().addAll(gridLayout, buttonsLayout);
+
+        return rightLayout;
+    }
+
+    private GridPane createTopRightLayout() {
+        GridPane gridLayout = new GridPane();
+        gridLayout.setPadding(new Insets(7));
+        gridLayout.setHgap(10);
+        gridLayout.setVgap(10);
+        gridLayout.setMinHeight((double) 3 * WINDOW_HEIGHT / 4);
+        gridLayout.setAlignment(Pos.CENTER);
+
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                layout7.add(gridLabel[row][col], col, row);
+                gridLayout.add(gridLabel[row][col], col, row);
             }
         }
 
-        HBox layout8 = new HBox();
-        layout8.setAlignment(Pos.CENTER);
-        layout8.getChildren().addAll(nextButton, prevButton);
-        HBox.setHgrow(nextButton, javafx.scene.layout.Priority.ALWAYS);
-        layout8.setSpacing(110);
-
-        VBox rightLayout = new VBox();
-        rightLayout.getChildren().addAll(layout7, layout8);
-
-        mainLayout = new HBox();
-        mainLayout.setStyle("-fx-background-color: #FFFFFF;");
-        mainLayout.getChildren().addAll(leftLayout, rightLayout);
+        return gridLayout;
     }
 
-    public void createLabels() {
+    private HBox createBottomRightLayout() {
+        HBox buttonsLayout = new HBox();
+        buttonsLayout.setAlignment(Pos.CENTER);
+        buttonsLayout.getChildren().addAll(nextButton, prevButton);
+        HBox.setHgrow(nextButton, javafx.scene.layout.Priority.ALWAYS);
+        buttonsLayout.setSpacing(110);
+
+        return buttonsLayout;
+    }
+
+    private void createLabels() {
+        createPromptLabels();
+        createHeaderLabels();
+        createValueLabels();
+        createGridLabels();
+    }
+
+    private void createPromptLabels() {
         puzzleInputLabel = new Label("Enter your Puzzle in this form 123456780: ");
-        puzzleInputLabel.setId("prompt-label");
+        puzzleInputLabel.setId(PROMPT_LABEL_ID);
         algorithmSelectionLabel = new Label("Choose a Search Algorithm: ");
-        algorithmSelectionLabel.setId("prompt-label");
+        algorithmSelectionLabel.setId(PROMPT_LABEL_ID);
+    }
 
+    private void createHeaderLabels() {
         costOfPathHeaderLabel = new Label("Cost of Path = ");
-        costOfPathHeaderLabel.setId("header-label");
+        costOfPathHeaderLabel.setId(HEADER_LABEL_ID);
         searchDepthHeaderLabel = new Label("Search Depth = ");
-        searchDepthHeaderLabel.setId("header-label");
+        searchDepthHeaderLabel.setId(HEADER_LABEL_ID);
         maxDepthHeaderLabel = new Label("Max Depth = ");
-        maxDepthHeaderLabel.setId("header-label");
+        maxDepthHeaderLabel.setId(HEADER_LABEL_ID);
         expandedNodesHeaderLabel = new Label("No. of Expanded Nodes = ");
-        expandedNodesHeaderLabel.setId("header-label");
+        expandedNodesHeaderLabel.setId(HEADER_LABEL_ID);
         timeHeaderLabel = new Label("Time = ");
-        timeHeaderLabel.setId("header-label");
+        timeHeaderLabel.setId(HEADER_LABEL_ID);
+    }
 
+    private void createValueLabels() {
         costOfPathValueLabel = new Label("");
-        costOfPathValueLabel.setId("value-label");
+        costOfPathValueLabel.setId(VALUE_LABEL_ID);
         searchDepthValueLabel = new Label("");
-        searchDepthValueLabel.setId("value-label");
+        searchDepthValueLabel.setId(VALUE_LABEL_ID);
         maxDepthValueLabel = new Label("");
-        maxDepthValueLabel.setId("value-label");
+        maxDepthValueLabel.setId(VALUE_LABEL_ID);
         expandedNodesValueLabel = new Label("");
-        expandedNodesValueLabel.setId("value-label");
+        expandedNodesValueLabel.setId(VALUE_LABEL_ID);
         timeValueLabel = new Label("");
-        timeValueLabel.setId("value-label");
+        timeValueLabel.setId(VALUE_LABEL_ID);
+    }
 
+    private void createGridLabels() {
         gridLabel = new Label[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 gridLabel[i][j] = new Label("");
-                gridLabel[i][j].setId("grid-label");
+                gridLabel[i][j].setId(GRID_LABEL_ID);
             }
         }
     }
 
-    public void createPuzzleTextField() {
+    private void createPuzzleTextField() {
         puzzleTextField = new TextField();
         puzzleTextField.setPromptText("Enter Your Puzzle");
     }
 
-    public void createButtons() {
+    private void createButtons() {
         solveButton = new Button("Solve");
         solveButton.setId("btn");
         solveButton.setOnAction(controller.solve());
@@ -271,7 +330,7 @@ public class GameView {
         viewPathButton.setOnAction(controller.viewPath());
     }
 
-    public void createSearchAlgorithmsComboBox() {
+    private void createSearchAlgorithmsComboBox() {
         searchAlgorithmsBox = new ComboBox<>();
         searchAlgorithmsBox.getItems().addAll("DFS", "BFS", "A* using Euclidean", "A* using Manhattan");
         searchAlgorithmsBox.setValue("BFS");

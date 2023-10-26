@@ -15,6 +15,7 @@ public abstract class Agent {
         this.startNode = startNode;
         this.goalNode = goalNode;
         this.expandedNodes = 0;
+        solution = new LinkedList<>();
     }
 
     public Node getStartNode() {
