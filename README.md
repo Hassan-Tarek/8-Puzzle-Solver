@@ -14,5 +14,5 @@
   cost of the shortest path.
     
 - The heuristic estimated using two different methods:-
-    1- Manhattan Distance.
-    2- Euclidean Distance. 
+    1. Manhattan Distance.
+    2. Euclidean Distance. 
