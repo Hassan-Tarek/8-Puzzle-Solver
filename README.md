@@ -3,16 +3,16 @@
 
 ## Search Algorithms
 ### 1- DFS
-- is an uninformed search algorithm which start by expanding the deepest node in the frontier first.
+- DFS is an uninformed search algorithm that starts by expanding the deepest node in the frontier first.
     
 ### 2- BFS
-- is an uninformed search algorithm in which the root expanded first then all the successors of the root are expanded next, then their successors and so on.
+- BFS is an uninformed search algorithm that expands the root first, followed by all the successors of the root, and so on.
     
 ### 3- A*
-- is an informed search algorithm which use evaluation function f(n) = g(n) + h(n).
-  where g(n) is the cost of the path from the start node to goal, and h(n) is the estimated
-  cost of the shortest path.
+- A* is an informed search algorithm that uses the evaluation function f(n) = g(n) + h(n).
+    - g(n) represents the cost of the path from the start node to the goal.
+    - h(n) is the estimated cost of the shortest path.
     
-- The heuristic estimated using two different methods:-
+- Heuristic Estimation Methods:
     1. Manhattan Distance.
     2. Euclidean Distance. 
