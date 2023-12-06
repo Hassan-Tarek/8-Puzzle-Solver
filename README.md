@@ -15,4 +15,7 @@
     
 - Heuristic Estimation Methods:
     1. Manhattan Distance.
-    2. Euclidean Distance. 
+    2. Euclidean Distance.
+    
+## Demo:
+![Program in Action](demo/demo.gif)
