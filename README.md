@@ -17,5 +17,5 @@
     1. Manhattan Distance.
     2. Euclidean Distance.
     
-## Demo:
+## Demo
 ![Program in Action](demo/demo.gif)
